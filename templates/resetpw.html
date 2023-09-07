@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Reset Password{% endblock %}
+
+{% block login %}
+<h5 class="bold mx-4 mt-3" style="float: left; position: absolute;">Pluto.com</h5> 
+
+{% from "includes/_formHelper.html" import render_field %}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col d-flex justify-content-center" style="margin-top: 25vh;">
+            
+            <form method="POST" action="">
+                <h3 class="mb-3">Reset Password</h3> 
+                <div class="form-group mb-2" style="width: 32vw;">
+                    {{ render_field(form.password, class="form-control") }}
+                </div>
+                <input type="submit" value="Change Password" class="btn w-100" style="background-color: #5227CC; color: white;">
+            </form>
+        </div>
+        <div class="col d-flex justify-content-center">
+            <img src="{{ url_for('static', filename='img/keys.png' )}}" alt="image of student studying" class="w-100" style="height: 100vh;">
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block content %}{% endblock %}

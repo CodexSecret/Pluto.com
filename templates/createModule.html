@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Create Module{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+<script src = "../static/js/script.js"></script>
+
+<h1 class="h3 font-weight-600 mb-4">Create Module</h1>
+<div class="d-flex justify-content-center">
+    <div class="h-100 w-50 p-4 shadow-sm p-3 mb-5 rounded" style="background-color: #f8f9fa;">
+<form method="POST" action="" enctype="multipart/form-data">
+  <div class="mb-2 form-group">
+    {{ render_field(form.module_image, class="form-control") }}
+  </div>
+  <div class="mb-2 form-group">
+   {{ render_field(form.module_code, class="form-control") }}
+  </div>
+  <div class="mb-2 form-group">
+   {{ render_field(form.module_name, class="form-control") }}
+  </div>
+  <div class="mb-2 form-group">
+   {{ render_field(form.implementation_date, class="form-control datepicker") }}
+  </div>
+  <div id="prof">
+      <div class="mb-2 form-group">
+       {{ render_field(form.module_description, class="form-control") }}
+      </div>
+  </div>
+<div class="h-25 mb-2 form-group">
+  <p style="color: #8540F5; font-weight: 600;" onclick = "unhide()"><small class="mb-0" style="float: right; cursor: pointer;">Add Classes</small></p>
+  <div class="mb-2 form-group">
+      {{ render_field(form.classes_assigned, class="form-control") }}
+  </div>
+  <div id="hidden1" class="mb-2 form-group hidden">
+      {{ render_field(form.classes_assigned2, class="form-control") }}
+  </div>
+  <div id="hidden2" class="mb-2 form-group hidden">
+      {{ render_field(form.classes_assigned3, class="form-control") }}
+  </div>
+  <div id="hidden3" class="mb-2 form-group hidden">
+      {{ render_field(form.classes_assigned4, class="form-control") }}
+  </div>
+  <div id="hidden4" class="mb-2 form-group hidden">
+      {{ render_field(form.classes_assigned5, class="form-control") }}
+  </div>
+  <div id="hidden5" class="mb-2 form-group hidden">
+      {{ render_field(form.classes_assigned6, class="form-control") }}
+  </div>
+  <div id="hidden6" class="mb-2 form-group hidden">
+      {{ render_field(form.classes_assigned7, class="form-control") }}
+  </div>
+  <div id="hidden7" class="mb-2 form-group hidden">
+      {{ render_field(form.classes_assigned8, class="form-control") }}
+  </div>
+</div>
+  <a href="/retrieveModules" class="btn btn-outline-danger">Go back</a>
+  <input type="submit" value="Create Module" class="btn btn-primary"/>
+</form>
+    </div>
+</div>
+{% endblock %}

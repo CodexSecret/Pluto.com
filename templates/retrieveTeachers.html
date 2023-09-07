@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Retrieve Teachers{% endblock %}
+
+{% block content %}
+<h1 class="h3 font-weight-600 mb-4">Retrieve Teachers</h1>
+
+<a href="/createTeacher" class="btn btn-outline-primary mx-4" style="float: right;">Create Teacher</a>
+<div>
+    {% if count == 0 %}
+        <p>There are no teachers.</p>
+    {% elif count == 1 %}
+        <p>There is a teacher.</p>
+    {% else %}
+        <p>There are {{ count }} teachers in total.</p>
+    {% endif %}
+</div>
+<div class="class-deck ">
+    {% for teacher in teachers_list %}
+    <div class="card mt-2" style="display: inline-flex; width: 24%; margin-right: 0.2%;">
+        <div class="card-body shadow-sm rounded" style="background-color: #f4f0ff;">
+          <h4><b>{{teacher.get_name()}}</b></h4>
+          <p>Staff ID: {{teacher.get_adminNo()}}</p>
+          <p>Gender: {{teacher.get_gender()}}</p>
+          <p>Class: {{teacher.get_modules()}}</p>
+          <p>Date Created: {{teacher.get_dateJoined()}}</p>
+          <br>
+          <table>
+            <tr>
+                <td>
+                    <form action="{{url_for('delete_teacher', id=teacher.get_adminNo())}}" method="POST">
+                        <!-- Button to Open The Modal -->
+                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#myModal_{{teacher.get_adminNo()}}">
+                            Delete
+                        </button>
+
+                        <!-- The Modal -->
+                        <div class="modal" id="myModal_{{teacher.get_adminNo()}}">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                          
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                  <h4 class="modal-title">Delete Confirmation</h4>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                          
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    Are you sure you want to delete {{ teacher.get_name() }}?
+                                </div>
+                          
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <input type="submit" value="Delete" class="btn btn-danger">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                </div>
+                          
+                              </div>
+                            </div>
+                          </div>
+                    </form>
+                </td>
+                <td><a href="/updateTeacher/{{teacher.get_adminNo()}}" class="btn btn-warning">Update</a></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      {% endfor %}
+</div>
+{% endblock %}

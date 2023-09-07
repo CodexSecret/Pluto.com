@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Retrieve Submissions{% endblock %}
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+
+<h1 class="h3 font-weight-600 mb-4">Retrieve Submissions</h1>
+<div>
+  {% if count == 0 %}
+  <p>There are no Submissions.</p>
+  {% elif count == 1 %}
+  <p>There is 1 Submissions.</p>
+  {% else %}
+  <p>There are {{ count }} Submissions.</p>
+  {% endif %}
+</div>
+<div>
+    <td>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+            <a class="nav-link active" data-bs-toggle="tab" href="#home">Submissions</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#menu1">Statistics</a>
+            </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane active" id="home"><br>
+                {% for submission in submissions_list %}
+                <div class="card" style="width: 500px; display: inline-block; margin-top: 10px; margin-left: 5px; margin-right: 5px;">
+                    <div class="card-body" style="background-color: #EBE5FC;">
+                        <h4><b>{{submission.get_submission_name()}}</b></h4>
+                        <h6><b>Assignment: {{submission.get_assignment_name()}}</b></h6>
+                        <h6><b>Status: {{submission.get_status()}}</b></h6>
+                        <h6><b>Marks: {{submission.get_grades()}}</b></h6>
+                        <br>
+                        <table style="margin-left: auto; margin-right: auto;">
+                            <tr>
+                                <td><a href="/teacherAdvancedSubmissionView/{{submission.get_submission_id()}}" class="btn btn-primary">View</a></td>
+                                {% if submission.get_grades() == 'Ungraded' %}
+                                    <td><a href="/updateTeacherSubmission/{{submission.get_submission_id()}}" class="btn btn-warning">Update</a></td>
+                                {% elif submission.get_grades() != 'Ungraded' %}
+                                    <td><a href="/updateTeacherSubmission/{{submission.get_submission_id()}}" class="btn btn-warning disabled">Update</a></td>
+                                {% endif %}
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="tab-pane fade" id="menu1"><br>
+            <canvas id="chart" width="700" height="400"></canvas>
+            <script>
+                var pieData = [
+                    {% for item, label, colors in set %}
+                    {
+                        value: "{{item}}",
+                        label: "{{label}}",
+                        color: "{{colors}}"
+                    },
+                    {% endfor %}
+                ];
+
+                // get bar chart canvas
+                var mychart = document.getElementById("chart").getContext("2d");
+                steps = 10
+                max = {{ max }}
+
+                // draw pie chart
+                new Chart(document.getElementById("chart").getContext("2d")).Pie(pieData);
+                console.log("1")
+            </script>
+            <p class="text-right">A: 70% or Above<br>B: 60% to 69%<br>C: 55% to 59%<br>D: 50% to 54%<br>E: 45% to 49%<br>S: 40% to 44% <br>U: 39% to 0% <br>Ungraded: Not Graded</p>
+        </div>
+    </td>
+</div>
+{% endblock %}

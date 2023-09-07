@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Retrieve Admin{% endblock %}
+
+{% block content %}
+<!-- {% if 'student_created' in session %}
+<div class="alert alert-success alert-dismissible">
+    {{ session['student_created']}} was created.
+    <button type="button" class="close" dtaa-dismiss="alert">&times;</button>
+</div>
+{% elif 'student_updated' in session %}
+<div class="alert alert-warning alert-dismissible">
+    {{ session['student_updated'] }} was updated.
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>
+{% elif 'student_deleted' in session %}
+<div class="alert alert-danger alert-dismissible">
+    {{ session['student_deleted'] }} was deleted.
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>
+{% endif %} -->
+<h1 class="h3 font-weight-600 mb-4">Retrieve Admin</h1>
+
+<a href="/createAdmin" class="btn btn-outline-primary mx-4" style="float: right;">Create Admin</a>
+<div>
+    {% if count == 0 %}
+        <p>There are no admin.</p>
+    {% elif count == 1 %}
+        <p>There is an admin.</p>
+    {% else %}
+        <p>There are {{ count }} admins in total.</p>
+    {% endif %}
+</div>
+<div>
+    <div class="class-deck ">
+        {% for admin in admin_list %}
+        <div class="card mt-2" style="display: inline-flex; width: 24%; margin-right: 0.2%;">
+            <div class="card-body shadow-sm rounded" style="background-color: #f4f0ff;">
+              <h4><b>{{admin.get_name()}}</b></h4>
+              <p>Staff ID: {{admin.get_adminNo()}}</p>
+              <p>Date Created: {{admin.get_dateJoined()}}</p>
+              <br>
+              <table>
+                <tr>
+                    <td>
+                        <form action="{{url_for('delete_admin', id=admin.get_adminNo())}}" method="POST">
+                            <!-- Button to Open The Modal -->
+                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#myModal_{{admin.get_adminNo()}}">
+                                Delete
+                            </button>
+    
+                            <!-- The Modal -->
+                            <div class="modal" id="myModal_{{admin.get_adminNo()}}">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                              
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                      <h4 class="modal-title">Delete Confirmation</h4>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                              
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        Are you sure you want to delete {{ admin.get_name() }}?
+                                    </div>
+                              
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <input type="submit" value="Delete" class="btn btn-danger">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    </div>
+                              
+                                  </div>
+                                </div>
+                              </div>
+                        </form>
+                    </td>
+                    <td><a href="/updateAdmin/{{admin.get_adminNo()}}" class="btn btn-warning">Update</a></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

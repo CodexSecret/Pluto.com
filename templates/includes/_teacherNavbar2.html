@@ -1,0 +1,63 @@
+<div id="mySidenav" class="sidenav mt-5">
+  <ul>
+    <li><a href="{{ url_for('teacherHome') }}" role="button" class="sideNavLinks">Home</a></li>
+    <li><a href="#" onclick="toggleSubNav('subSideNav1')" role="button" class="sideNavLinks">Manage Assignments</a> </li>
+    <li><a href="{{ url_for('teacher_retrieve_submissions')}}" class="sideNavLinks">View Submissions</a> </li>
+    <li><a href="{{ url_for('retrieve_teacher_modules') }}" class="sideNavLinks">View Modules</a></li>
+    <li><a href="{{ url_for('teacher_retrieve_feedback') }}" class="sideNavLinks">View Feedbacks</a> </li>
+  </ul>
+</div>
+
+<div id="subNavGroup">
+  <div id="subSideNav1" class="subSideNav mt-5" style="padding-top: 85px" >
+    <ul>
+      <li><a href="{{ url_for('create_assignment')}}">Create Assignments</a></li>
+      <li><a href="{{ url_for('teacher_retrieve_assignments')}}">View Assignments</a></li>
+    </ul>
+  </div>
+</div>
+
+  <ul id="sideIcon" class="mt-5">
+    <li><span onclick="toggleNav()" id="openbtn" class="bi bi-list"></span></li>
+    <li><span onclick="toggleNav()" id="closebtn" class="bi bi-x"></span></li>
+    <li><span onclick="toggleNav()" class="bi bi-house"></span></li>
+    <li><span onclick="toggleNav()" class="bi bi-file-earmark-plus"></span></li>
+    <li><span onclick="toggleNav()" class="bi bi-pencil-square"></span></li>
+    <li><span onclick="toggleNav()" class="bi bi-folder-plus"></span></li>
+    <li><span onclick="toggleNav()" class="bi bi-chat-left-text"></span></li>
+  </ul>
+
+<script>
+  function toggleNav() {
+    if (document.getElementById('openbtn').style.display == 'none'){
+      document.getElementById('openbtn').style.display = 'block';
+      document.getElementById('closebtn').style.display = 'none';   
+      document.getElementById("mySidenav").style.width = "0";
+      document.getElementById("sideIcon").style.marginLeft = "0";
+      var sideNavGroup = document.querySelectorAll('.subSideNav');
+      for (var i = 0; i < sideNavGroup.length; i++){
+        if (sideNavGroup[i].classList.contains('linkActive')){
+          sideNavGroup[i].classList.remove('linkActive');
+        }
+      }
+    }
+    else{
+      document.getElementById('openbtn').style.display = 'none';
+      document.getElementById('closebtn').style.display = 'block';
+      document.getElementById("mySidenav").style.width = "190px";
+      document.getElementById("mySidenav").style.marginLeft = "45px";
+    }
+  }
+
+  function toggleSubNav(subSideNav) {
+    var sideNavGroup = document.querySelectorAll('.subSideNav');
+    for (var i = 0; i < sideNavGroup.length; i++){
+      if (sideNavGroup[i].classList.contains('linkActive')){
+        sideNavGroup[i].classList.remove('linkActive');
+      };
+    }
+    document.getElementById(subSideNav).classList.add('linkActive');
+  };
+  
+</script>
+

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Update Submission{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+
+<h1 class="h3 font-weight-600 mb-4">Update Submission</h1>
+
+<div class="d-flex justify-content-center">
+    <div class="h-100 w-50 p-4 shadow-sm p-3 mb-5 rounded" style="background-color: #f8f9fa;">
+        <form method="POST" enctype=multipart/form-data>
+            <div id="prof">
+                <div class="mb-2 form-group">
+                    {{ render_field(form.details, class="form-control") }}
+                </div>
+            </div>
+            <div class="mb-2 form-group">
+                {{ render_field(form.file, class="form-control") }}
+            </div>
+            <input type="button" value="Go back" onclick="history.go(-1)" class="btn btn-outline-danger">
+            <input type="submit" value="Submit" class="btn btn-primary"/>
+        </form>
+    </div>
+</div>
+{% endblock %}

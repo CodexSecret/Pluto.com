@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Quote Generator{% endblock %}
+
+{% block content %}
+<h1 class="h3 font-weight-600 mb-4">Quotes</h1>
+<div class="d-flex justify-content-center">
+    <div class="h-100 w-80 p-4 shadow-sm p-3 mb-5 rounded" style="background-color: #f8f9fa;">
+        <h4><b>{{quote}}</b></h4>
+        <br>
+        <table style="margin-left: auto; margin-right: auto;">
+          <tr>
+            <td><a href="/quoteGenerator" class="btn btn-primary">Generate Another Quote</a></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+{% endblock %}

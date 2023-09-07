@@ -1,0 +1,249 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.sidenav {
+  z-index: 2;
+  height: 100%;
+  width: 0;
+  position: fixed;
+  color: white;
+  background-color: #5227CC;
+  white-space: nowrap;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 40px;
+  border-right: 1px solid#CED4DA;
+}
+
+.sidenav ul {
+  list-style-type: none;
+  padding: 16px;
+  font-size: 24px;
+  color: white;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav li {
+  margin-top: 1vh;
+}
+
+.sidenav a{
+  font-size: 1rem;
+  color: white;
+  text-decoration: none;
+}
+
+.sidenav ul:hover {
+  color: #f1f1f1;
+}
+
+#closebtn {
+  display: none;
+}
+
+#sideIcon {
+  z-index: 3;
+  list-style-type: none;
+  position: fixed;
+  float: left;
+  cursor: pointer;
+  color: white;
+  background-color: #5227CC;
+  font-size: 24px;
+  transition: margin-left .5s;
+  padding: 16px;
+  height: 100vh;
+}
+
+#sideIcon li{
+  margin-top: 1vh;
+}
+
+.subSideNav {
+  float: left;
+  z-index: 1;
+  height: 100%;
+  left: 190px;
+  width: 0;
+  position: fixed;
+  color: white;
+  background-color: #5227CC;
+  white-space: nowrap;
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+.subSideNav ul {
+  list-style-type: none;
+  padding: 16px;
+  font-size: 24px;
+  color: white;
+  display: block;
+  transition: 0.3s ease-in-out;
+  padding-left: 30px;
+}
+
+.subSideNav a {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.linkActive {
+  width: 190px;
+  margin-left: 35px;
+}
+
+.pendingAssignments:hover{
+  transition: 0.3s;
+  box-shadow: 0 .125rem .25rem rgba(0, 0, 0, 0.3);
+}
+
+#mainContent {
+  padding: 10vh 0 0 6vw;
+}
+
+.addIcon {
+  padding-left: 10%;
+}
+
+.viewModules{
+  max-width: 160px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; 
+}
+
+#loadingScreen {
+  display: none;
+}
+
+.loader {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  padding-left: 150px;
+}
+
+.loader:before , .loader:after{
+  width: 150px;
+  height: 150px;
+  content: '';
+  border-radius: 50%;
+  position: absolute;
+  inset: 0;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.3) inset;
+}
+.loader:after {
+  width: 150px;
+  height: 150px;
+  box-shadow: 0 2px 0 #5227CC inset;
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  0% {  transform: rotate(0)}
+  100% { transform: rotate(360deg)}
+}
+
+#notfound {
+  position: relative;
+  height: 100vh;
+}
+
+#notfound .notfound {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.notfound {
+  max-width: 410px;
+  width: 100%;
+  text-align: center;
+}
+
+.notfound .notfound-404 {
+  height: 280px;
+  position: relative;
+  z-index: -1;
+}
+
+.notfound .notfound-404 h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 230px;
+  margin: 0px;
+  font-weight: 900;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+  background: url('../img/bg.jpg') no-repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: cover;
+  background-position: center;
+}
+
+
+.notfound h2 {
+  font-family: 'Montserrat', sans-serif;
+  color: #000;
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 0;
+}
+
+.notfound p {
+  font-family: 'Montserrat', sans-serif;
+  color: #000;
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  margin-top: 0px;
+}
+
+.notfound a {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  text-decoration: none;
+  text-transform: uppercase;
+  background: #0046d5;
+  display: inline-block;
+  padding: 15px 30px;
+  border-radius: 40px;
+  color: #fff;
+  font-weight: 700;
+  -webkit-box-shadow: 0px 4px 15px -5px #0046d5;
+          box-shadow: 0px 4px 15px -5px #0046d5;
+}
+
+
+@media only screen and (max-width: 767px) {
+    .notfound .notfound-404 {
+      height: 142px;
+    }
+    .notfound .notfound-404 h1 {
+      font-size: 112px;
+    }
+}
+
+
+.hidden{
+    display:none;
+}

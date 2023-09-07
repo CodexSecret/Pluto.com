@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Create Class{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+<script src = "../static/js/script.js"></script>
+
+<h1 class="h3 font-weight-600 mb-4">Create Class</h1>
+<div class="d-flex justify-content-center">
+    <div class="h-100 w-50 p-4 shadow-sm p-3 mb-5 rounded" style="background-color: #f8f9fa;">
+<form method="POST" action="">
+ <div class="mb-2 form-group">
+  {{ render_field(form.class_name, class="form-control") }}
+ </div>
+<div class="h-25 mb-2 form-group">
+ <p style="color: #8540F5; font-weight: 600;" onclick = "unhide1()"><small class="mb-0" style="float: right; cursor: pointer;">Add Students</small></p>
+ <div class="mb-2 form-group">
+  {{ render_field(form.student_names, class="form-control") }}
+ </div>
+  <div id="hidden11" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names2, class="form-control") }}
+ </div>
+  <div id="hidden12" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names3, class="form-control") }}
+ </div>
+  <div id="hidden13" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names4, class="form-control") }}
+ </div>
+  <div id="hidden14" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names5, class="form-control") }}
+ </div>
+  <div id="hidden15" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names6, class="form-control") }}
+ </div>
+  <div id="hidden16" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names7, class="form-control") }}
+ </div>
+  <div id="hidden17" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names8, class="form-control") }}
+ </div>
+  <div id="hidden18" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names9, class="form-control") }}
+ </div>
+  <div id="hidden19" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names10, class="form-control") }}
+ </div>
+  <div id="hidden110" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names11, class="form-control") }}
+ </div>
+  <div id="hidden111" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names12, class="form-control") }}
+ </div>
+   <div id="hidden112" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names13, class="form-control") }}
+ </div>
+  <div id="hidden113" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names14, class="form-control") }}
+ </div>
+  <div id="hidden114" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names15, class="form-control") }}
+ </div>
+  <div id="hidden115" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names16, class="form-control") }}
+ </div>
+  <div id="hidden116" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names17, class="form-control") }}
+ </div>
+  <div id="hidden117" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names18, class="form-control") }}
+ </div>
+  <div id="hidden118" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names19, class="form-control") }}
+ </div>
+  <div id="hidden119" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names20, class="form-control") }}
+ </div>
+  <div id="hidden120" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names21, class="form-control") }}
+ </div>
+  <div id="hidden121" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names22, class="form-control") }}
+ </div>
+  <div id="hidden122" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names23, class="form-control") }}
+ </div>
+   <div id="hidden123" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names24, class="form-control") }}
+ </div>
+  <div id="hidden124" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names25, class="form-control") }}
+ </div>
+  <div id="hidden125" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names26, class="form-control") }}
+ </div>
+  <div id="hidden126" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names27, class="form-control") }}
+ </div>
+  <div id="hidden127" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names28, class="form-control") }}
+ </div>
+  <div id="hidden128" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names29, class="form-control") }}
+ </div>
+  <div id="hidden129" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names30, class="form-control") }}
+ </div>
+  <div id="hidden130" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names31, class="form-control") }}
+ </div>
+  <div id="hidden131" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names32, class="form-control") }}
+ </div>
+  <div id="hidden132" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names33, class="form-control") }}
+ </div>
+  <div id="hidden133" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names34, class="form-control") }}
+ </div>
+   <div id="hidden134" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names35, class="form-control") }}
+ </div>
+  <div id="hidden135" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names36, class="form-control") }}
+ </div>
+  <div id="hidden136" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names37, class="form-control") }}
+ </div>
+  <div id="hidden137" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names38, class="form-control") }}
+ </div>
+  <div id="hidden138" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names39, class="form-control") }}
+ </div>
+  <div id="hidden139" class="mb-2 form-group hidden">
+  {{ render_field(form.student_names40, class="form-control") }}
+ </div>
+</div>
+ <div class="h-25 mb-2 form-group">
+  <p style="color: #8540F5; font-weight: 600;" onclick = "unhide2()"><small class="mb-0" style="float: right; cursor: pointer;">Add Teachers</small></p>
+  <div class="mb-2 form-group">
+   {{ render_field(form.form_teachers, class="form-control") }}
+  </div>
+   <div id="hidden21" class="mb-2 form-group hidden">
+   {{ render_field(form.form_teachers2, class="form-control") }}
+  </div>
+   <div id="hidden22" class="mb-2 form-group hidden">
+   {{ render_field(form.form_teachers3, class="form-control") }}
+  </div>
+   <div id="hidden23" class="mb-2 form-group hidden">
+   {{ render_field(form.form_teachers4, class="form-control") }}
+  </div>
+ </div>
+ <div class="mb-2 form-group">
+  {{ render_field(form.implementation_date, class="form-control datepicker") }}
+ </div>
+ <div id="prof">
+  <div class="mb-2 form-group">
+   {{ render_field(form.class_description, class="form-control") }}
+  </div>
+ </div>
+ <a href="/retrieveClasses" class="btn btn-outline-danger">Back</a>
+ <input type="submit" value="Create Class" class="btn btn-primary"/>
+</form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Retrieve Classes{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper2.html" import render_field %}
+<div>
+    <a href="/createClass" class="btn btn-outline-primary mx-4" style="float: right;">Create Class</a>
+    <h1 class="h3 font-weight-600 mb-4">Retrieve Classes</h1>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-9">
+            {% if count == 0 %}
+            <p>There are no classes.</p>
+            {% elif count == 1 %}
+            <p>There is 1 class.</p>
+            {% else %}
+            <p>There are {{ count }} classes.</p>
+            {% endif %}
+        </div>
+         <div class="col-3">
+            <form method="POST" action="">
+                <div class="row g-0">
+                    <div class="form-group col-10">
+                        {{ render_field(form.search_bar, class="form-control") }}
+                    </div>
+                    <div class="form-group col-2">
+                        <input type="submit" value="Search" class="btn btn-outline-info"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="class-deck">
+    {% for class in classes_list %}
+    <div class="card mt-2" style="display: inline-flex; width: 24%; margin-right: 0.2%;">
+        <div class="card-body shadow-sm rounded" style="background-color: #f4f0ff;">
+            <h4><b>{{ class.get_class_name() }}</b></h4>
+            <p>Class ID: {{ class.get_class_id() }}</p>
+            <p>Class Implementation Date: {{ class.get_implementation_date() }}</p>
+            <p>Class Description: {{ class.get_class_description() }}</p>
+            <br>
+        <table>
+            <tr>
+                <td><a href="/retrieveClassesInfo/{{class.get_class_id()}}" class="btn btn-primary">View Class</a></td>
+            </tr>
+            <tr>
+                <td>
+                    {% if class.get_class_id()|string + "." + class.get_class_name() in classes_assigned_list %}
+                    <button type="button" class="btn btn-outline-secondary" disabled>
+                        Delete
+                    </button>
+                    {% else %}
+                     <form action="{{url_for('delete_class', id=class.get_class_id())}}" method="POST">
+                        <!-- Button to Open the Modal -->
+                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#myModal_{{class.get_class_id()}}">
+                          Delete
+                        </button>
+
+                        <!-- The Modal -->
+                        <div class="modal" id="myModal_{{class.get_class_id()}}">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+
+                              <!-- Modal Header -->
+                              <div class="modal-header">
+                                <h4 class="modal-title">Delete Confirmation</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                              </div>
+
+                              <!-- Modal body -->
+                              <div class="modal-body">
+                                Are you sure you want to delete {{class.get_class_id()}}. {{class.get_class_name()}}?
+                              </div>
+
+                              <!-- Modal footer -->
+                              <div class="modal-footer">
+                                  <input type="submit" value="Delete" class="btn btn-outline-danger">
+                                  <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </form>
+                    {% endif %}
+                </td>
+                <td><a href="/updateClass/{{class.get_class_id()}}" class="btn btn-warning">Update</a></td>
+            </tr>
+        </table>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+

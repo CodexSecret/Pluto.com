@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Retrieve Modules{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper2.html" import render_field %}
+<h1 class="h3 font-weight-600 mb-4">View Modules</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-9">
+            {% if count == 0 %}
+            <p>There are no modules.</p>
+            {% elif count == 1 %}
+            <p>There is 1 module.</p>
+            {% else %}
+            <p>There are {{ count }} modules.</p>
+            {% endif %}
+        </div>
+        <div class="col-3">
+            <form method="POST" action="">
+                <div class="row g-0">
+                    <div class="form-group col-10">
+                        {{ render_field(form.search_bar, class="form-control") }}
+                    </div>
+                    <div class="form-group col-2">
+                        <input type="submit" value="Search" class="btn btn-outline-info"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="card-deck">
+    {% for module in modules_list %}
+    <div class="card mt-2" style="display: inline-flex; width: 24%; margin-right: 0.2%;">
+        <div class="card-body shadow-sm rounded" style="background-color: #f4f0ff;">
+            <h4><b>{{ module.get_module_name() }}</b></h4>
+            <p>Module Code:{{ module.get_module_code() }}</p>
+            <p>Module Image:</p>
+            <img src = "../static/img/{{ module.get_module_image() }}" alt = "No Image" width = "100" height = "80">
+            <p>Module Description:{{ module.get_module_description() }}</p>
+        <br>
+        <table>
+            <tr>
+                <td><a href="/teacherRetrieveFeedback" class="btn btn-success">View Feedback</a></td>
+            </tr>
+            <tr>
+                <td><a href="/retrieveClassesTeacher/{{ module.get_module_code() }}" class="btn btn-primary">View Module Classes</a></td>
+            </tr>
+        </table>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

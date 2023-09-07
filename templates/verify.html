@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Login{% endblock %}
+
+{% block login %}
+<h5 class="bold mx-4 mt-3" style="float: left; position: absolute;">Pluto.com</h5> 
+
+{% from "includes/_formHelper.html" import render_field %}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col d-flex justify-content-center ms-3" style="margin-top: 28vh;">
+            <form method="POST" action="" class="ms-5">
+                <h3 class="mb-3">Enter OTP</h3> 
+                <div class="w-75">
+                    <p>An email should be sent to you if you have entered the correct Admin No.</p>
+                </div>
+                <div class="form-group mb-2 w-75">
+                    {{ render_field(form.code, class="form-control") }}
+                    <p class="text-danger">{{ message }}</p>
+                </div>
+                <input type="submit" value="Login" class="btn w-75" style="background-color: #5227CC; color: white;">
+            </form>
+        </div>
+        <div class="col d-flex justify-content-center p-0">
+            <img src="{{ url_for('static', filename='img/keys.png' )}}" alt="image of student studying" class="w-100" style="height: 100vh;">
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block content %}{% endblock %}

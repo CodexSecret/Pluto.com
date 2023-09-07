@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Retrieve Feedback{% endblock %}
+
+{% block content %}
+<!-- {% if 'student_created' in session %}
+<div class="alert alert-success alert-dismissible">
+    {{ session['student_created']}} was created.
+    <button type="button" class="close" dtaa-dismiss="alert">&times;</button>
+</div>
+{% elif 'student_updated' in session %}
+<div class="alert alert-warning alert-dismissible">
+    {{ session['student_updated'] }} was updated.
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>
+{% elif 'student_deleted' in session %}
+<div class="alert alert-danger alert-dismissible">
+    {{ session['student_deleted'] }} was deleted.
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>
+{% endif %} -->
+<h1 class="h3 font-weight-600 mb-4">View Feedback</h1>
+<div>
+    {% if count == 0 %}
+        <p>There are no feedback.</p>
+    {% elif count == 1 %}
+        <p>There is a feedback.</p>
+    {% else %}
+        <p>There are {{ count }} feedbacks in total.</p>
+    {% endif %}
+</div>
+
+<!-- <form>
+    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+  </form> -->
+  <div class="class-deck ">
+    {% for feedback in feedback_list %}
+        <div class="card mt-2" style="display: inline-flex; width: 24%; margin-right: 0.2%;">
+            <div class="card-body shadow-sm rounded" style="background-color: #f4f0ff;">
+                {% for student in students_list %}
+                    {% if student.get_adminNo() == feedback.get_studentID() %}
+                        <h4><b>{{student.get_name()}}</b></h4>
+                    {% endif %}
+                {% endfor %}
+                <p>Date Created: {{feedback.get_dateCreated()}}</p>
+                {% if feedback.get_status() == "Not Reviewed" %}
+                    <td style="width: 15vw;"><p class="text-danger"><i class="bi bi-brightness-low-fill text-danger me-1"></i>{{ feedback.get_status() }}</p></td>
+                {% else %}
+                    <td style="width: 15vw;"><p class="text-success"><i class="bi bi-brightness-high-fill text-success me-1"></i>{{ feedback.get_status() }}</p></td>
+                {% endif %}
+                <td><a href="/teacherViewFeedback/{{feedback.get_key()}}" class="btn btn-success">View Feedback</a></td>
+            </div>
+        </div>
+      {% endfor %}
+</div>
+
+
+<!-- <div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Modules</th>
+                <th scope="col">Date Created</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for feedback in feedback_list %}
+            <tr>
+                <td style="width: 5vw">{{ loop.index }}</td>
+                <td style="width: 42vw;" class="{{ feedback.get_moduleID }}">{{ feedback.get_moduleID() }}</td>
+                <td style="width: 18vw;" class="{{ feedback.get_dateCreated }}">{{ feedback.get_dateCreated() }}</td>
+                {% if feedback.get_status() == "Not Reviewed" %}
+                    <td class="text-danger" style="width: 15vw;">{{ feedback.get_status() }}</td>
+                {% else %}
+                    <td class="text-success" style="width: 15vw;">{{ feedback.get_status() }}</td>
+                {% endif %}
+                <td><a href="/teacherViewFeedback/{{feedback.get_key()}}" class="btn btn-success">View Feedback</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div> -->
+
+
+{% endblock %}
+
+

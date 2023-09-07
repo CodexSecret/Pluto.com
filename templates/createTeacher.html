@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Create Teacher{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+
+<h1 class="h3 font-weight-600 mb-4">Create Teacher</h1>
+
+<div class="d-flex justify-content-center">
+    <div class="h-100 w-50 p-4 shadow-sm rounded" style="background-color: #f8f9fa; width: 65vw;">
+        <form method="POST" action="">
+            <div class="mb-2 form-group">
+                {{ render_field(form.name, class="form-control") }}
+            </div>
+            <div class="mb-2 form-check-inline">
+                {{ render_field(form.gender, class="form-check", style="list-style-type:none;") }}
+            </div>
+            <div class="mb-2 form-group">
+                {{ render_field(form.email, class="form-control") }}
+            </div>
+            <div class="mb-2 form-group">
+                {{ render_field(form.adminNo, class="form-control") }}
+            </div>
+            <div class="mb-2 form-group">
+                {{ render_field(form.password, class="form-control") }}
+            </div>
+            <div id="modules" class="h-25 mb-2 form-group">
+                <!-- <a href="#" id="add_module" style="color: #8540F5; font-weight: 600;"><small class="mb-0" style="float: right;">Add modules</small></a> -->
+                {{ render_field(form.module1, class="form-control") }}
+            </div>
+            <a href="{{ url_for('retrieve_teachers')}}" class="btn btn-outline-danger">Go back</a>
+            <input type="submit" value="Create Teacher" class="btn btn-primary"/>
+        </form>
+    </div>
+</div>
+
+<script>
+    window.onload = function() {
+        let addModulesButton = document.getElementById('add_modules');
+        addModulesButton.addEventListener('click', function(e){
+            e.preventDefault();
+            let allModulesFieldWrapper = document.getElementById('module');
+            let allModulesField = allModulesFieldWrapper.getElementsByTagName('select');
+            if(allModulesField.length > 3) {
+                alert('You can have only 3 modules');
+                return;
+            }
+            let modulesInputId = []
+            for(let i = 0; i < allModulesField.length; i++) {
+                modulesInputId.push(parseInt(allModulesField[i].name.split('-')[1]));
+            }
+            let newFieldName = `modules-${Math.max(...modulesInputId) + 1}`;
+            allModulesFieldWrapper.insertAdjacentHTML('beforeend',`
+            <li><label for="${newFieldName}">Movie Name</label> <input id="${newFieldName}" name="${newFieldName}" type="text" value=""></li> 
+            `);
+        });
+    }
+</script>
+{% endblock %}

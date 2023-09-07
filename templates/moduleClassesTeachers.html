@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Retrieve Module Classes{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper2.html" import render_field %}
+<style>
+    .img {
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    overflow: auto;
+    right: 0;
+    top: 0;
+    -o-object-fit: contain;
+    object-fit: contain;
+}
+
+</style>
+<h1 class="h3 font-weight-600 mb-4">View Module Classes</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-9">
+            {% if count == 0 %}
+            <p>There are no classes.</p>
+            {% elif count == 1 %}
+            <p>There is 1 class.</p>
+            {% else %}
+            <p>There are {{ count }} classes.</p>
+            {% endif %}
+        </div>
+        <div class="col-3">
+            <form method="POST" action="">
+                <div class="row g-0">
+                    <div class="form-group col-10">
+                        {{ render_field(form.search_bar, class="form-control") }}
+                    </div>
+                    <div class="form-group col-2">
+                        <input type="submit" value="Search" class="btn btn-info"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div>
+    <img src="../../static/img/{{ module.get_module_image() }}" class="img">
+</div>
+<div class="card-deck">
+    {% for class in classes_list %}
+    <div class="card mt-2" style="display: inline-flex; width: 24%; margin-right: 0.2%;">
+        <div class="card-body shadow-sm rounded" style="background-color: #f4f0ff;">
+            <h4><b>{{ class.get_class_name() }}</b></h4>
+            <p>Class ID:{{ class.get_class_id() }}</p>
+            <p>Class Date Implemented:{{ class.get_implementation_date() }}</p>
+            <p>Class Description:{{ class.get_class_description() }}</p>
+        <br>
+        <table>
+            <tr>
+                <td><a href="#/{{ module.get_module_code() }}/{{ class.get_class_id() }}" class="btn btn-primary">View Assignments</a></td>
+            </tr>
+        </table>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

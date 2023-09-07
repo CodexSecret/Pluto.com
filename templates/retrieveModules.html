@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Retrieve Modules{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper2.html" import render_field %}
+<a href="/createModule" class="btn btn-outline-primary mx-4" style="float: right;">Create Module</a>
+<div>
+    <h1 class="h3 font-weight-600 mb-4">Retrieve Modules</h1>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-9">
+            {% if count == 0 %}
+            <p>There are no modules.</p>
+            {% elif count == 1 %}
+            <p>There is 1 module.</p>
+            {% else %}
+            <p>There are {{ count }} modules.</p>
+            {% endif %}
+        </div>
+        <div class="col-3">
+            <form method="POST" action="">
+                <div class="row g-0">
+                    <div class="form-group col-10">
+                        {{ render_field(form.search_bar, class="form-control") }}
+                    </div>
+                    <div class="form-group col-2">
+                        <input type="submit" value="Search" class="btn btn-info"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="class-deck">
+    {% for module in modules_list %}
+    <div class="card mt-2" style="display: inline-flex; width: 24%; margin-right: 0.2%;">
+        <div class="card-body shadow-sm rounded" style="background-color: #f4f0ff;">
+            <h4><b>{{ module.get_module_name() }}</b></h4>
+            <p>Module Image:</p><img src = "../static/img/{{ module.get_module_image() }}" alt = "No Image" width = "100" height = "80">
+            <p>Module Code: {{ module.get_module_code() }}</p>
+            <p>Module Implementation Date: {{ module.get_implementation_date() }}</p>
+            <p>Module Description: {{ module.get_module_description() }}</p>
+        <br>
+        <table>
+            <tr>
+                <td><a href="/retrieveModuleClasses/{{module.get_module_code()}}" class="btn btn-primary">View Classes</a></td>
+            </tr>
+            <tr>
+                <td>
+                    <form action="{{url_for('delete_module', id=module.get_module_code())}}" method="POST" class="inline-block">
+                        <!-- Button to Open the Modal -->
+                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#myModal_{{module.get_module_code()}}">
+                          Delete
+                        </button>
+
+                        <!-- The Modal -->
+                        <div class="modal" id="myModal_{{module.get_module_code()}}">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+
+                              <!-- Modal Header -->
+                              <div class="modal-header">
+                                <h4 class="modal-title">Delete Confirmation</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                              </div>
+
+                              <!-- Modal body -->
+                              <div class="modal-body">
+                                Are you sure you want to delete {{module.get_module_code()}} {{module.get_module_name()}}?
+                              </div>
+
+                              <!-- Modal footer -->
+                              <div class="modal-footer">
+                                  <input type="submit" value="Delete" class="btn btn-outline-danger">
+                                  <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                    </form>
+                </td>
+                <td><a href="/updateModule/{{module.get_module_code()}}" class="btn btn-warning">Update</a></td>
+            </tr>
+        </table>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

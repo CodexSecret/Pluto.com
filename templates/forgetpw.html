@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Forget Password{% endblock %}
+
+{% block login %}
+<a href="{{ url_for('userHome') }}"><h5 class="bold mx-4 mt-3 text-body" style="float: left; position: absolute;">Pluto.com</h5></a> 
+
+{% from "includes/_formHelper.html" import render_field %}
+
+<div class="text-center" id="loadingScreen" style="padding-top: 30vh;">
+    <h5>Please wait as we send you a one-time password to your registered email.</h5>
+    <h6>Please check your inbox for the one-time password.</h6>
+    <br>
+    <span class="loader"></span>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col d-flex justify-content-center" style="margin-top: 25vh;">
+            <form method="POST" action="" id="form" onsubmit="return loadingScreen()">
+                <h3 class="mb-3">Forget Password</h3> 
+                <div class="form-group mb-2" style="width: 32vw;">
+                    {{ render_field(form.adminNo, class="form-control") }}
+                    {{ message }}
+                </div>
+                <div>
+                    <a href="{{ url_for('login') }}" class="btn btn-outline-danger w-25">Go back</a>
+                    <input type="submit" value="Verify" class="btn w-25" style="background-color: #5227CC; color: white;">
+                </div>
+            </form>
+        </div>
+        <div class="col d-flex justify-content-center p-0">
+            <img src="{{ url_for('static', filename='img/keys.png' )}}" alt="image of key" class="w-100" style="height: 100vh;">
+        </div>
+    </div>
+</div>
+
+<script>
+    function loadingScreen(){
+        var divs = document.querySelectorAll("body > div:not(.loadingScreen)");
+        document.getElementById('sideNavigation').style.display = 'none';
+        for (var i = 0, n = divs.length; i < n; i++){
+            divs[i].style.display = 'none';
+        }
+        document.getElementById("loadingScreen").style.display = 'block';
+    };
+</script>
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block content %}{% endblock %}

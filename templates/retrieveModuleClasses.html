@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Retrieve Module Classes{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper2.html" import render_field %}
+{% if 'class_created' in session %}
+<div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {{ session.pop('class_created',None) }} was created.
+</div>
+{% elif 'class_updated' in session %}
+<div class="alert alert-warning alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {{ session.pop('class_updated', None) }} was updated.
+</div>
+{% elif 'class_deleted' in session %}
+<div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {{ session.pop('class_deleted', None) }} was deleted.
+</div>
+{% endif %}
+<div>
+    <a href="/createClass" class="btn btn-outline-primary mx-4" style="float: right;">Create Class</a>
+    <h1 class="h3 font-weight-600 mb-4">Retrieve Classes</h1>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-9">
+            {% if count == 0 %}
+            <p>There are no classes.</p>
+            {% elif count == 1 %}
+            <p>There is 1 class.</p>
+            {% else %}
+            <p>There are {{ count }} classes.</p>
+            {% endif %}
+        </div>
+         <div class="col-3">
+            <form method="POST" action="">
+                <div class="row g-0">
+                    <div class="form-group col-10">
+                        {{ render_field(form.search_bar, class="form-control") }}
+                    </div>
+                    <div class="form-group col-2">
+                        <input type="submit" value="Search" class="btn btn-info"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="card-deck">
+    {% for class in classes_assigned_list %}
+    <div class="card mt-2" style="display: inline-flex; width: 24%; margin-right: 0.2%;">
+        <div class="card-body shadow-sm rounded" style="background-color: #f4f0ff;">
+            <h4><b>{{ class.get_class_name() }}</b></h4>
+            <p>Class ID: {{ class.get_class_id() }}</p>
+            <p>Date Implemented: {{ class.get_implementation_date() }}</p>
+            <p>Class Description: {{ class.get_class_description() }}</p>
+        <br>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+

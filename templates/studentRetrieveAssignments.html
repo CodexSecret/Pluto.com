@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Assignments{% endblock %}
+{% block content %}
+{% from "includes/_formHelper2.html" import render_field %}
+
+<h1 class="h3 font-weight-600 mb-4">Assignments</h1>
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-9">
+          {% if count == 0 %}
+          <p>There are no assignments</p>
+          {% elif count == 1 %}
+          <p>There is 1 assignment</p>
+          {% else %}
+          <p>There are {{ count }} assignments</p>
+          {% endif %}
+      </div>
+      <div class="col-3">
+          <form method="POST" action="">
+              <div class="row">
+                  <div class="form-group col-9">
+                      {{ render_field(form.search_bar, class="form-control") }}
+                  </div>
+                  <div class="form-group col-3">
+                      <input type="submit" value="Search" class="btn btn-outline-info"/>
+                  </div>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+<div>
+  <div class="class-deck ">
+    {% for assignment in assignments_list %}
+    <div class="card mt-2" style="display: inline-flex; width: 24%; margin-right: 0.2%;">
+        <div class="card-body shadow-sm rounded" style="background-color: #f4f0ff;">
+          <h4><b>{{assignment.get_AssignmentName()}}</b></h4>
+
+          <p>Module: {{assignment.get_module_code()}}<br>File ID: {{assignment.get_FileID()}} <br> Due Date: {{assignment.get_DueDate()}}</p>
+          <div class="row">
+            <div class="col-10 text-truncate">
+              {{assignment.get_AssignmentDetails()}}
+            </div>
+          </div>
+          <br>
+          <a href="/retrieveIndividualSubmissions/{{assignment.get_FileID()}}" class="btn btn-warning mb-1">View All Submissions</a>
+          <table class="d-flex flex-wrap">
+            <tr>
+                <td><a href="/downloadAssignment/{{assignment.get_filename()}}" class="btn btn-primary">Download</a></td>
+                <td><a href="/studentAdvancedAssignmentView/{{assignment.get_FileID()}}" class="btn btn-info">Details</a></td>
+                {% if assignment.get_DueDate() >= now %}
+                  <td><a href="/createSubmission/{{assignment.get_FileID()}}" class="btn btn-success">Submit</a></td>
+                {% elif assignment.get_DueDate() < now %}
+                  <td><a href="/createSubmission/{{assignment.get_FileID()}}" class="btn btn-success disabled">Submit</a></td>
+                {% endif %}
+            </tr>
+          </table>
+        </div>
+      </div>
+      {% endfor %}
+  </div>
+</div>
+{% endblock %}

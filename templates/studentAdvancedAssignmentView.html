@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - {{assignment.get_AssignmentName()}}{% endblock %}
+{% block content %}
+{% from "includes/_formHelper2.html" import render_field %}
+<h1 class="h3 font-weight-600 mb-4">{{assignment.get_AssignmentName()}}</h1>
+<div class="d-flex justify-content-center">
+    <div class="h-100 w-50 p-4 shadow-sm p-3 mb-5 rounded" style="background-color: #f8f9fa;">
+        <h4><b>Assignment Details</b></h4>
+        <p>{{assignment.get_AssignmentDetails()}}</p>
+        <p>Due On: {{assignment.get_DueDate()}}</p>
+        <input type="button" value="Go back" onclick="history.back()" class="btn btn-outline-danger">
+        <a href="/downloadAssignment/{{assignment.get_filename()}}" class="btn btn-primary">Download</a>
+        <a href="{{ url_for('create_submission_link', assignment_id=assignment.get_FileID()) }}" class="btn btn-success">Submit Assignment</a>
+    </div>
+</div>
+{% endblock %}

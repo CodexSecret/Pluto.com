@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Retrieve Feedback{% endblock %}
+
+{% block content %}
+<!-- {% if 'student_created' in session %}
+<div class="alert alert-success alert-dismissible">
+    {{ session['student_created']}} was created.
+    <button type="button" class="close" dtaa-dismiss="alert">&times;</button>
+</div>
+{% elif 'student_updated' in session %}
+<div class="alert alert-warning alert-dismissible">
+    {{ session['student_updated'] }} was updated.
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>
+{% elif 'student_deleted' in session %}
+<div class="alert alert-danger alert-dismissible">
+    {{ session['student_deleted'] }} was deleted.
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>
+{% endif %} -->
+<h1 class="h3 font-weight-600 mb-4">View Feedback</h1>
+
+<div>
+    {% if count == 0 %}
+        <p>There are no feedback.</p>
+    {% elif count == 1 %}
+        <p>There is a feedback.</p>
+    {% else %}
+        <p>There are {{ count }} feedbacks in total.</p>
+    {% endif %}
+<!-- 
+<select id="filterby" class="form-select form-select-sm mb-3" aria-label=".form-select-sm" style="width: 10vw;" onchange="filterby()">
+    <option selected>Filter by: </option>
+    <option value="status1">Status - Reviewed</option>
+    <option value="status2">Status - Not Reviewed</option>
+</select>
+
+<select id="sortby" class="form-select form-select-sm mb-3" aria-label=".form-select-sm" style="width: 10vw;" onchange="sortby()">
+    <option selected>Sort by: </option>
+    <option value="date1">Date Created Ascending</option>
+    <option value="date2">Date Created Descending</option>
+    <option value="modules1">Modules Ascending</option>
+    <option value="modules2">Modules Descending</option>
+</select>
+ -->
+
+</div>
+<div class="class-deck ">
+    {% for feedback in feedback_list %}
+        {% if feedback.get_studentID() == session['account'] %}
+            <div class="card mt-2" style="display: inline-flex; width: 24%; margin-right: 0.2%;">
+                <div class="card-body shadow-sm rounded" style="background-color: #f4f0ff;">
+                    <h4><b>{{feedback.get_moduleID()}}</b></h4>
+                    <p>Date Created: {{feedback.get_dateCreated()}}</p>
+                    {% if feedback.get_status() == "Not Reviewed" %}
+                        <td style="width: 15vw;"><p class="text-danger"><i class="bi bi-brightness-low-fill text-danger me-1"></i>{{ feedback.get_status() }}</p></td>
+                    {% else %}
+                        <td style="width: 15vw;"><p class="text-success"><i class="bi bi-brightness-high-fill text-success me-1"></i>{{ feedback.get_status() }}</p></td>
+                    {% endif %}
+                    <table>
+                    <tr>
+                        <td>
+                            <form action="{{url_for('delete_feedback', id=feedback.get_key())}}" method="POST">
+                                <!-- Button to Open The Modal -->
+                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#myModal_{{feedback.get_key()}}">
+                                    Delete
+                                </button>
+        
+                                <!-- The Modal -->
+                                <div class="modal" id="myModal_{{feedback.get_key()}}">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                        <h4 class="modal-title">Delete Confirmation</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                            Are you sure you want to delete {{ feedback.get_moduleID() }} feedback?
+                                        </div>
+                                
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <input type="submit" value="Delete" class="btn btn-danger">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        </div>
+                                
+                                    </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+                        {% if feedback.get_status() == "Not Reviewed" %}
+                            <td><a href="/updateFeedback/{{feedback.get_key()}}" class="btn btn-warning">Update</a></td>
+                        {% else %}
+                            <td><a href="/updateFeedback/{{feedback.get_key()}}" class="btn btn-warning disabled">Update</a></td>
+                        {% endif %}
+                    </tr>
+                    </table>
+                </div>
+            </div>
+        {% endif %}
+      {% endfor %}
+</div>
+
+
+{% endblock %}
+
+

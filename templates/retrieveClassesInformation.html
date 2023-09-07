@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Retrieve Classes Students{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper2.html" import render_field %}
+<div>
+    <a href="/createClass" class="btn btn-outline-primary mx-4" style="float: right;">Create Class</a>
+    <h1 class="h3 font-weight-600 mb-4">Retrieve Classes</h1>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-9">
+            {% if count == 0 %}
+            <p>There are no people.</p>
+            {% elif count == 1 %}
+            <p>There is 1 people.</p>
+            {% else %}
+            <p>There are {{ count }} people.</p>
+            {% endif %}
+        </div>
+         <div class="col-3">
+            <form method="POST" action="">
+                <div class="row g-0">
+                    <div class="form-group col-10">
+                        {{ render_field(form.search_bar, class="form-control") }}
+                    </div>
+                    <div class="form-group col-2">
+                        <input type="submit" value="Search" class="btn btn-info"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<h2>Form Teachers</h2>
+<div class="card-deck">
+    {% for teacher in teachers_list %}
+    <div class="card mt-2" style="display: inline-flex; width: 24%; margin-right: 0.2%;">
+        <div class="card-body shadow-sm rounded" style="background-color: #f4f0ff;">
+            <h4><b>{{ teacher.get_name() }}</b></h4>
+            <p>Staff ID: {{ teacher.get_adminNo() }}</p>
+            <p>Gender: {{ teacher.get_gender() }}</p>
+            <p>Email: {{ teacher.get_email() }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<h2>Students</h2>
+<div class="card-deck">
+    {% for student in students_list %}
+    <div class="card mt-2" style="display: inline-flex; width: 24%; margin-right: 0.2%;">
+        <div class="card-body shadow-sm rounded" style="background-color: #f4f0ff;">
+            <h4><b>{{ student.get_name() }}</b></h4>
+            <p>Admin Number: {{ student.get_adminNo() }}</p>
+            <p>Gender: {{ student.get_gender() }}</p>
+            <p>Email: {{ student.get_email() }}</p>
+        <br>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+

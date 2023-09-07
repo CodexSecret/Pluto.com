@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Home{% endblock %}
+
+{% block content %}
+<h1 class="h3 font-weight-600">Overview</h1>
+<div class="d-flex">
+    <div style="height: 120px;" class="rounded shadow-sm me-3">
+      <div class="px-3 py-2">
+        <div>
+          <i class="bi bi-person text-info "></i><small class="ms-2">Students Created</small>
+          <h1 class="ms-4 mt-2"><u style="text-underline-offset: 1rem; text-decoration-color: #5be9ff;">{{studentCount}}</u></h1>
+        </div>
+      </div>
+    </div>
+    <div style="height: 120px; min-width: 170px;" class="rounded shadow-sm me-3">
+      <div class="px-3 py-2">
+        <div>
+          <i class="bi bi-person text-danger"></i><small class="ms-2">Teachers Created</small>
+          <h1 class="ms-4 mt-2"><u style="text-underline-offset: 1rem; text-decoration-color: #dc3545;">{{teacherCount}}</u></h1>
+        </div>
+      </div>
+    </div>
+    <div style="height: 120px;" class="rounded shadow-sm me-3">
+      <div class="px-3 py-2">
+        <div>
+          <i class="bi bi-book" style="color: #6610f2"></i><small class="ms-2">Modules Created</small>
+          <h1 class="ms-4 mt-2"><u style="text-underline-offset: 1rem; text-decoration-color: #6610f2">{{moduleCount}}</u></h1>
+        </div>
+      </div>
+    </div>
+    <div style="height: 120px;" class="rounded shadow-sm">
+      <div class="px-3 py-2">
+        <div>
+          <i class="bi bi-book" style="color: #32bb00"></i><small class="ms-2">Classes Created</small>
+          <h1 class="ms-4 mt-2"><u style="text-underline-offset: 1rem; text-decoration-color: #6610f2">{{classCount}}</u></h1>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

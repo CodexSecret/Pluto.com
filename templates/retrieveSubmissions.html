@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Retrieve Submissions{% endblock %}
+{% block content %}
+{% from "includes/_formHelper2.html" import render_field %}
+
+<h1 class="h3 font-weight-600 mb-4">Retrieve Submissions</h1>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-9">
+      {% if count == 0 %}
+      <p>There are no Submissions.</p>
+      {% elif count == 1 %}
+      <p>There is 1 Submissions.</p>
+      {% else %}
+      <p>There are {{ count }} Submissions.</p>
+      {% endif %}
+    </div>
+    <div class="col-2">
+      <form method="POST" action="">
+        <div class="row">
+          <div class="form-group col-9">
+            {{ render_field(form.search_bar, class="form-control") }}
+          </div>
+          <div class="form-group col-3">
+            <input type="submit" value="Search" class="btn btn-outline-info"/>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div>
+    {% for submission in submissions_list %}
+    <div class="card" style="width: 500px; display: inline-block; margin-top: 10px; margin-left: 5px; margin-right: 5px;">
+      <div class="card-body" style="background-color: #EBE5FC;">
+        <h4><b>{{submission.get_submission_name()}}</b></h4>
+        <h6><b>Assignment: {{submission.get_assignment_name()}}</b></h6>
+        <h6><b>Status: {{submission.get_status()}}</b></h6>
+        <h6><b>Marks: {{submission.get_grades()}}</b></h6>
+        <h6><b>Time: {{submission.get_submission_date()}}</b></h6>
+        <br>
+        <table style="margin-left: auto; margin-right: auto;">
+          <tr>
+              <td><a href="/studentAdvancedSubmissionView/{{submission.get_submission_id()}}" class="btn btn-primary">View</a></td>
+              {% if submission.get_grades() == 'Ungraded' %}
+                <td><a href="/updateSubmission/{{submission.get_submission_id()}}" class="btn btn-warning">Update</a></td>
+              {% elif submission.get_grades() != 'Ungraded' %}
+                <td><a href="/updateSubmission/{{submission.get_submission_id()}}" class="btn btn-warning disabled">Update</a></td>
+              {% endif %}
+
+          </tr>
+        </table>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

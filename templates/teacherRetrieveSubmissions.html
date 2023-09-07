@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Retrieve Submissions{% endblock %}
+{% block content %}
+{% from "includes/_formHelper2.html" import render_field %}
+
+<h1 class="h3 font-weight-600 mb-4">Retrieve Submissions</h1>
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-9">
+        {% if count == 0 %}
+        <p>There are no Submissions.</p>
+        {% elif count == 1 %}
+        <p>There is 1 Submissions.</p>
+        {% else %}
+        <p>There are {{ count }} Submissions.</p>
+        {% endif %}
+      </div>
+      <div class="col-3">
+          <form method="POST" action="">
+              <div class="row">
+                  <div class="form-group col-9">
+                      {{ render_field(form.search_bar, class="form-control") }}
+                  </div>
+                  <div class="form-group col-3">
+                      <input type="submit" value="Search" class="btn btn-outline-info"/>
+                  </div>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+<div>
+    {% for submission in submissions_list %}
+    <div class="card" style="width: 500px; display: inline-block; margin-top: 10px; margin-left: 5px; margin-right: 5px;">
+      <div class="card-body" style="background-color: #EBE5FC;">
+        <h4><b>{{submission.get_submission_name()}}</b></h4>
+        <h6><b>Assignment: {{submission.get_assignment_name()}}</b></h6>
+        <h6><b>Status: {{submission.get_status()}}</b></h6>
+        <h6><b>Marks: {{submission.get_grades()}}</b></h6>
+        <h6><b>Time: {{submission.get_submission_date()}}</b></h6>
+        <br>
+        <table style="margin-left: auto; margin-right: auto;">
+          <tr>
+            <td><a href="/teacherAdvancedSubmissionView/{{submission.get_submission_id()}}" class="btn btn-primary">View</a></td>
+            <td><a href="/updateTeacherSubmission/{{submission.get_submission_id()}}" class="btn btn-warning">Update</a></td>
+            <td>
+              <form action="{{url_for('delete_student_submission', id=submission.get_submission_id())}}" method="POST">
+                <!-- Button to Open The Modal -->
+                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#myModal_{{submission.get_submission_id()}}">
+                    Delete 
+                </button>
+
+                <!-- The Modal -->
+                <div class="modal" id="myModal_{{submission.get_submission_id()}}">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                  
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                          <h4 class="modal-title">Delete Confirmation</h4>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                  
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            Are you sure you want to delete {{ submission.get_submission_name() }}?
+                        </div>
+                  
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <input type="submit" value="Delete" class="btn btn-danger">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                  
+                      </div>
+                    </div>
+                  </div>
+            </form>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

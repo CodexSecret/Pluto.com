@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Assignments{% endblock %}
+{% block content %}
+{% from "includes/_formHelper2.html" import render_field %}
+<h1 class="h3 font-weight-600 mb-4">Assignments</h1>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-9">
+      {% if count == 0 %}
+      <p>You assigned no assignments</p>
+      {% elif count == 1 %}
+      <p>You assigned one assignment</p>
+      {% else %}
+      <p>You assigned {{count}} assignments.</p>
+      {% endif %}
+    </div>
+    <div class="col-2">
+      <form method="POST" action="">
+        <div class="row">
+          <div class="form-group col-9">
+          {{ render_field(form.search_bar, class="form-control") }}
+          </div>
+          <div class="form-group col-3">
+            <input type="submit" value="Search" class="btn btn-outline-info"/>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-6">
+      <a href="{{ url_for('create_assignment')}}" class="btn btn-outline-primary">Create Assignments</a>
+    </div>
+  </div>
+</div>
+<div class="class-deck ">
+  {% for assignment in assignments_list %}
+  <div class="card mt-2" style="display: inline-flex; width: 24%; margin-right: 0.2%;">
+      <div class="card-body shadow-sm rounded" style="background-color: #f4f0ff;">
+        <h4><b>{{assignment.get_AssignmentName()}}</b></h4>
+        <p>File ID: {{assignment.get_FileID()}} <br> Due Date: {{assignment.get_DueDate()}}</p>
+        <div class="row">
+          <div class="col-10 text-truncate">
+            {{assignment.get_AssignmentDetails()}}
+          </div>
+        </div>
+        <br>
+        <a href="/teacherRetrieveIndividualSubmissions/{{assignment.get_FileID()}}" class="btn btn-success mb-1">View Student Submissions</a>
+        <table>
+          <tr>
+              <td>
+                  <form action="{{url_for('delete_assignment', id = assignment.get_FileID())}}" method="POST">
+                      <!-- Button to Open The Modal -->
+                      <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#myModal_{{assignment.get_FileID()}}">
+                          Delete 
+                      </button>
+
+                      <!-- The Modal -->
+                      <div class="modal" id="myModal_{{assignment.get_FileID()}}">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                        
+                              <!-- Modal Header -->
+                              <div class="modal-header">
+                                <h4 class="modal-title">Delete Confirmation</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                              </div>
+                        
+                              <!-- Modal body -->
+                              <div class="modal-body">
+                                  Are you sure you want to delete {{ assignment.get_AssignmentName() }}?
+                              </div>
+                        
+                              <!-- Modal footer -->
+                              <div class="modal-footer">
+                                  <input type="submit" value="Delete" class="btn btn-danger">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                              </div>
+                        
+                            </div>
+                          </div>
+                        </div>
+                  </form>
+              </td>
+              <td><a href="/updateAssignment/{{assignment.get_FileID()}}" class="btn btn-warning">Update</a></td>
+              <td><a href="/teacherAdvancedAssignmentView/{{assignment.get_FileID()}}" class="btn btn-info">Details</a></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

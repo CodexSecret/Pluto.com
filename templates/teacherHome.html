@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Home{% endblock %}
+
+{% block pendingAssignment %}
+<div class="p-3 rounded shadow-sm me-3" id="pendingAssignments" style=" width: 310px; float: right; margin-top: 15vh;">
+  <h5>Submissions Need Grading</h5>
+  <div class="mt-3">
+    {% if ungradedSubmission == 0 %}
+    <p class="text-center">No Submissions</p>
+    {% endif %}
+    {% for submission in submissionsUngraded_list %}
+      {% if submission.get_grades() == "Ungraded" %}
+        {% if loop.index < 5 %}
+        <div class="rounded py-2 container bg-white pendingAssignments mb-1">
+            <div class="row">
+            <div class="col-auto px-2">
+                {% if modules.get_module_name() == submission.get_module_code() %}
+                <img src="../static/img/{{modules.get_module_image()}}" alt="" width="46px;" style="max-height: 50px; min-height: 45px;" class="rounded">
+                {% endif %}
+            </div>
+            <div class="col-auto">
+                <p class="m-0" style="font-size: 1rem; font-weight: 500;">{{submission.get_assignment_name()}}</p>
+                <div class="row">
+                <div class="col-auto">
+                    {% for student in students_list %}
+                        {% if submission.get_student_id() == student.get_adminNo() %}
+                        <p class="m-0" style="font-size: .9rem;">{{student.get_name()}}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="col-auto">
+                    <p class="m-0 text-warning fw-bold" style="font-size: .9rem;">{{submission.get_submission_date()}}</p>
+                </div>
+                </div>
+            </div>
+            <div class="col-auto align-self-center px-0">
+                <a href="{{ url_for('teacher_retrieve_submissions_with_id', assignment_id=submission.get_assignment_id())}}"><i class="bi bi-caret-right-fill text-body"></i></a>
+            </div>
+            </div>
+        </div>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+    <div class="btn btn-dark align-items-center py-1 w-100 mt-2" style="border-radius: 120px;">
+      <a href="{{ url_for('teacher_retrieve_submissions')}}"><p class="m-0 text-white btn" style="font-size: small; font-weight: 500;">See All Submimssions</p></a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block content %}
+<h1 class="h3 font-weight-600 mb-4">Overview</h1>
+<div class="d-flex">
+  <div style="height: 120px;" class="rounded shadow-sm me-3">
+    <div class="px-3 py-2">
+      <div>
+        <i class="bi bi-chat-left-text text-info "></i><small class="ms-2">Student Feedbacks</small>
+        <h1 class="ms-4 mt-2"><u style="text-underline-offset: 1rem; text-decoration-color: #5be9ff;">{{feedbackCount}}</u></h1>
+      </div>
+    </div>
+  </div>
+  <div style="height: 120px; min-width: 170px;" class="rounded shadow-sm me-3">
+    <div class="px-3 py-2">
+      <div>
+        <i class="bi bi-pen text-danger"></i><small class="ms-2">Submissions Need Grading</small>
+        <h1 class="ms-4 mt-2"><u style="text-underline-offset: 1rem; text-decoration-color: #dc3545;">{{ungradedSubmission}}</u></h1>
+      </div>
+    </div>
+  </div>
+  <div style="height: 120px;" class="rounded shadow-sm">
+    <div class="px-3 py-2">
+      <div>
+        <i class="bi bi-clock" style="color: #6610f2"></i><small class="ms-2">Days left to O'Levels</small>
+        <h1 class="ms-4 mt-2"><u style="text-underline-offset: 1rem; text-decoration-color: #6610f2">{{Olvlcountdown}}</u></h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h5 class="ms-3 mt-4">{{ title }}</h5>
+<div class="ms-3 d-flex flex-nowrap">
+    <canvas id="chart" width="720" height="300"></canvas>
+    <script>
+
+      // bar chart data
+      var barData = {
+        labels : [
+          {% for item in labels %}
+            "{{ item }}",
+          {% endfor %}
+        ],
+
+        datasets : [{
+          fillColor: "rgba(151,187,205,0.2)",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          bezierCurve : false,
+          data : [
+	    {% for item in values %}
+              {{ item }},
+            {% endfor %}]
+          }
+	]
+      }
+
+      Chart.defaults.global.animationSteps = 50;
+      Chart.defaults.global.tooltipYPadding = 16;
+      Chart.defaults.global.tooltipCornerRadius = 0;
+      Chart.defaults.global.tooltipTitleFontStyle = "normal";
+      Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
+      Chart.defaults.global.animationEasing = "easeOutBounce";
+      Chart.defaults.global.responsive = false;
+      Chart.defaults.global.scaleLineColor = "black";
+      Chart.defaults.global.scaleFontSize = 16;
+
+      // get bar chart canvas
+      var mychart = document.getElementById("chart").getContext("2d");
+
+      steps = 5
+      max = {{ max }}
+      // draw bar chart
+      var LineChartDemo = new Chart(mychart).Line(barData, {
+        scaleOverride: true,
+        scaleSteps: steps,
+        scaleStepWidth: Math.ceil(max / steps),
+        scaleStartValue: 0,
+        scaleShowVerticalLines: true,
+        scaleShowGridLines : true,
+        barShowStroke : true,
+        scaleShowLabels: true,
+        bezierCurve: false,
+      });
+
+    </script>
+</div>
+
+{% endblock %}

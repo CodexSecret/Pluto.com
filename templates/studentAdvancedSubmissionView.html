@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - {{submission.get_submission_name()}}{% endblock %}
+{% block content %}
+{% from "includes/_formHelper2.html" import render_field %}
+<h1 class="h3 font-weight-600 mb-4">{{submission.get_submission_name()}}</h1>
+<div class="d-flex justify-content-center">
+    <div class="h-100 w-50 p-4 shadow-sm p-3 mb-5 rounded" style="background-color: #f8f9fa;">
+        <h4><b>Assignment Details</b></h4>
+        <p>Assignment: {{submission.get_assignment_name()}}</p>
+        <p>Status: {{submission.get_status()}}</p>
+        <p>Marks: {{submission.get_grades()}}</p>
+        <p>Time: {{submission.get_submission_date()}}</p>
+        <p>Details: {{submission.get_details()}}</p>
+        <p>Answers: {{submission.get_answers()}}</p>
+        <a href="/retrieveSubmissions" class="btn btn-warning">Go back</a>
+        <a href="/downloadFile/{{submission.get_filename()}}" class="btn btn-primary">Download</a>
+    </div>
+</div>
+{% endblock %}

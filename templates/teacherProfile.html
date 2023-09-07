@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - View Profile{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+
+<h1 class="h3 font-weight-600 mb-4">View Profile</h1>
+
+<div class="d-flex justify-content-center">
+    <div class="h-100 p-4 shadow-sm rounded" style="background-color: #f8f9fa; width: 65vw;">
+        <form method="POST" action="">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <div class="col-xs-6 mb-2 form-group" style="width: 90%;">
+                            {{ render_field(form.name, class="form-control") }}
+                        </div>
+                        <div class="mb-2 form-check-inline" style="width: 90%;">
+                            {{ render_field(form.gender, class="form-control") }}
+                        </div>
+                        <div class="mb-2 form-group" style="width: 90%;">
+                            {{ render_field(form.email, class="form-control") }}
+                        </div>
+                        <div class="mb-2 form-group" style="width: 90%;">
+                            {{ render_field(form.adminNo, class="form-control") }}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div id="modules" class="h-25 mb-2 form-group" style="width: 95%;">
+                            {{ render_field(form.module1, class="form-control") }}
+                        </div>
+                        <input type="submit" value="Return Home" class="btn btn-outline-danger "/>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock%}

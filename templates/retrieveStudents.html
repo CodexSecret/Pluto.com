@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}Integrated Learning System - Retrieve Students{% endblock %}
+
+{% block content %}
+{% if 'student_created' in session %}
+<div class="alert alert-success alert-dismissible">
+    {{ session['student_created']}} was created.
+    <button type="button" class="close" dtaa-dismiss="alert">&times;</button>
+</div>
+{% elif 'student_updated' in session %}
+<div class="alert alert-warning alert-dismissible">
+    {{ session['student_updated'] }} was updated.
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>
+{% elif 'student_deleted' in session %}
+<div class="alert alert-danger alert-dismissible">
+    {{ session['student_deleted'] }} was deleted.
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>
+{% endif %}
+<h1 class="h3 font-weight-600 mb-4">Retrieve Students</h1>
+<!-- <form method="POST">
+    <div class="input-group">
+        <div class="form-outline">
+          <input type="search" id="form1" class="form-control" name="search"/>
+          <label class="form-label" for="form1">Search</label>
+        </div>
+        <button type="button" class="btn btn-primary">
+          <i class="fas fa-search" type="submit"></i>
+        </button>
+      </div>
+</form>
+<form class="form-inline my-2 my-lg-0" method="POST">
+
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form> -->
+<a href="/createStudent" class="btn btn-outline-primary mx-4" style="float: right;">Create Student</a>
+<div>
+    {% if count == 0 %}
+        <p>There are no students.</p>
+    {% elif count == 1 %}
+        <p>There is a student.</p>
+    {% else %}
+        <p>There are {{ count }} students in total.</p>
+    {% endif %}
+</div>
+<div class="class-deck ">
+    {% for student in students_list %}
+    <div class="card mt-2" style="display: inline-flex; width: 24%; margin-right: 0.2%;">
+        <div class="card-body shadow-sm rounded" style="background-color: #f4f0ff;">
+          <h4><b>{{student.get_name()}}</b></h4>
+          <p>Admin No.: {{student.get_adminNo()}}</p>
+          <p>Gender: {{student.get_gender()}}</p>
+          <p>Birth Date: {{student.get_birthDate()}}</p>
+          <br>
+          <table>
+            <tr>
+                <td>
+                    <form action="{{url_for('delete_student', id=student.get_adminNo())}}" method="POST">
+                        <!-- Button to Open The Modal -->
+                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#myModal_{{student.get_adminNo()}}">
+                            Delete
+                        </button>
+
+                        <!-- The Modal -->
+                        <div class="modal" id="myModal_{{student.get_adminNo()}}">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                          
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                  <h4 class="modal-title">Delete Confirmation</h4>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                          
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    Are you sure you want to delete {{ student.get_name() }}?
+                                </div>
+                          
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <input type="submit" value="Delete" class="btn btn-danger">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                </div>
+                          
+                              </div>
+                            </div>
+                          </div>
+                    </form>
+                </td>
+                <td><a href="/updateStudent/{{student.get_adminNo()}}" class="btn btn-warning">Update</a></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      {% endfor %}
+</div>
+
+{% endblock %}
